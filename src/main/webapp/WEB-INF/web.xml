@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+    <display-name>Bookstore</display-name>
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.htm</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>default.html</welcome-file>
+        <welcome-file>default.htm</welcome-file>
+        <welcome-file>default.jsp</welcome-file>
+    </welcome-file-list>
+    <servlet>
+        <servlet-name>UserServlet</servlet-name>
+        <servlet-class>com.example.bookstore.controller.UserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BookServlet</servlet-name>
+        <servlet-class>com.example.bookstore.controller.BookItemServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CartUpdate</servlet-name>
+        <servlet-class>com.example.bookstore.controller.CartServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderServlet</servlet-name>
+        <servlet-class>com.example.bookstore.controller.OrderServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddBook</servlet-name>
+        <servlet-class>com.example.bookstore.controller.BookServlet</servlet-class>
+    </servlet>
+<!--    <servlet>-->
+<!--        <servlet-name>SignUp</servlet-name>-->
+<!--        <servlet-class>com.bookstore.db.UserSignUp</servlet-class>-->
+<!--    </servlet>-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>SignUp</servlet-name>-->
+<!--        <url-pattern>/SignUp</url-pattern>-->
+<!--    </servlet-mapping>-->
+
+
+    <servlet-mapping>
+        <servlet-name>UserServlet</servlet-name>
+        <url-pattern>/UserServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CartUpdate</servlet-name>
+        <url-pattern>/cartUpdate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookServlet</servlet-name>
+        <url-pattern>/BookServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderServlet</servlet-name>
+        <url-pattern>/submitOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddBook</servlet-name>
+        <url-pattern>/AddBook</url-pattern>
+    </servlet-mapping>
+
+    <context-param>
+        <description>Location to store uploaded cover images</description>
+        <param-name>file-upload</param-name>
+        <param-value>
+            F:\pttk_ht\bookstore\src\main\webapp\book_images
+        </param-value>
+    </context-param>
+</web-app>
