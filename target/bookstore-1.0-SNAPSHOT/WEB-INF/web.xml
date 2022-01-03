@@ -29,16 +29,17 @@
         <servlet-name>AddBook</servlet-name>
         <servlet-class>com.example.bookstore.controller.BookServlet</servlet-class>
     </servlet>
-<!--    <servlet>-->
-<!--        <servlet-name>SignUp</servlet-name>-->
-<!--        <servlet-class>com.bookstore.db.UserSignUp</servlet-class>-->
-<!--    </servlet>-->
-<!--    <servlet-mapping>-->
-<!--        <servlet-name>SignUp</servlet-name>-->
-<!--        <url-pattern>/SignUp</url-pattern>-->
-<!--    </servlet-mapping>-->
+    <servlet>
+        <servlet-name>StaffServlet</servlet-name>
+        <servlet-class>com.example.bookstore.controller.StaffServlet</servlet-class>
+    </servlet>
 
 
+
+    <servlet-mapping>
+        <servlet-name>StaffServlet</servlet-name>
+        <url-pattern>/StaffServlet</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UserServlet</servlet-name>
         <url-pattern>/UserServlet</url-pattern>

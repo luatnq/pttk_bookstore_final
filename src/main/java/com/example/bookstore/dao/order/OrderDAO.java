@@ -23,20 +23,4 @@ public class OrderDAO {
         }
     }
 
-    public Order getOrderById(Integer id){
-        Transaction transaction = null;
-        Order order = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()){
-            transaction = session.beginTransaction();
-            order =(Order) session.createQuery("from Order order where order.id = :id ")
-                    .setParameter("id", id).getSingleResult();
-            transaction.commit();
-        }catch (Exception e){
-            if (transaction != null){
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        }
-        return order;
-    }
 }

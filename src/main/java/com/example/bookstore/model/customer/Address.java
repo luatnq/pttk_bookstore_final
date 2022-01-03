@@ -1,6 +1,5 @@
 package com.example.bookstore.model.customer;
 
-//import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +14,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class Address implements Serializable {
     @Id
-    @Column(name = "customer_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "number_house")
@@ -30,8 +29,4 @@ public class Address implements Serializable {
     @Column(name = "district")
     private String district;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
 }

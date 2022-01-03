@@ -51,4 +51,13 @@ public class BookItem implements Serializable {
         this.book = book;
         this.fileDbs = fileDbs;
     }
+
+    public BookItem(Book book, float price, String discount, String barCode){
+        this.barCode = barCode;
+        this.discount = discount;
+        this.price = price;
+        this.book = book;
+        this.fileDbs.addAll(fileDbs);
+        this.createdDate = new Date();
+    }
 }

@@ -16,7 +16,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class Account implements Serializable {
     @Id
-    @Column(name = "customer_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "username")
@@ -24,12 +24,6 @@ public class Account implements Serializable {
 
     @Column(name = "password")
     private String password;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
-    @JoinColumn(name = "customer_id")
-//    @JsonIgnore
-    private Customer customer;
 
     public Account(String username, String password) {
         this.username = username;

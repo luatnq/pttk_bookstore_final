@@ -14,7 +14,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class FullName implements Serializable {
     @Id
-    @Column(name = "customer_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "first_name")
@@ -25,11 +25,6 @@ public class FullName implements Serializable {
 
     @Column(name = "middle_name")
     private String middleName;
-
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
 
     public FullName(String firstName, String lastName, String middleName) {
         this.firstName = firstName;

@@ -16,7 +16,7 @@
          pageEncoding="UTF-8" %>
 <%@ include file="header.jsp" %>
 
-<%@ page import="com.example.bookstore.dao.book.BookDAO,
+<%@ page import="com.example.bookstore.dao.book.impl.BookDAOImpl,
                  com.example.bookstore.model.book.Book,
                  java.util.*,
                  java.text.NumberFormat" %>

@@ -47,7 +47,7 @@
     <label for="fullName" class="sr-only">Name</label>
     <input type="text" class="form-control" name="fullName" id="fullName" placeholder="Full name"/>
 
-    <label for="bankId" class="sr-only">Password</label>
+    <label for="bankId" class="sr-only">Bank id</label>
     <input type="text" name="bankId" id="bankId" class="form-control" placeholder="Bank Id">
 
     <button type="submit" class="btn btn-lg btn-primary btn-block">Sign in</button>

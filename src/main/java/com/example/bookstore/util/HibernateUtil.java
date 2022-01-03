@@ -13,6 +13,8 @@ import com.example.bookstore.model.order.payment.Cash;
 import com.example.bookstore.model.order.payment.Check;
 import com.example.bookstore.model.order.payment.Credit;
 import com.example.bookstore.model.order.payment.Payment;
+import com.example.bookstore.model.staff.Role;
+import com.example.bookstore.model.staff.Staff;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.boot.registry.internal.StandardServiceRegistryImpl;
@@ -38,10 +40,11 @@ public class HibernateUtil {
                 properties.put(Environment.URL, "jdbc:mysql://localhost:3306/bookstore?zeroDateTimeBehavior=convertToNull");
                 properties.put(Environment.USER, "root");
                 properties.put(Environment.PASS, "");
-                properties.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
+                properties.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5InnoDBDialect");
                 properties.put(Environment.SHOW_SQL, "true");
                 properties.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
-                properties.put(Environment.HBM2DDL_AUTO, "none");
+                properties.put(Environment.HBM2DDL_AUTO, "update");
+
 
                 configuration.setProperties(properties);
                 configuration.addAnnotatedClass(Author.class);
@@ -62,6 +65,8 @@ public class HibernateUtil {
                 configuration.addAnnotatedClass(Order.class);
                 configuration.addAnnotatedClass(Shipment.class);
                 configuration.addAnnotatedClass(FileDb.class);
+                configuration.addAnnotatedClass(Staff.class);
+                configuration.addAnnotatedClass(Role.class);
 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties()).build();

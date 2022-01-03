@@ -48,4 +48,8 @@ public class Book implements Serializable {
             joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "file_id", referencedColumnName = "id"))
     private Set<FileDb> fileDbs = new HashSet<>();
+
+    @Column(name = "status")
+    private boolean status;
+
 }

@@ -17,7 +17,7 @@ public class AccountDAO {
             transaction.commit();
         }catch (Exception e){
             if (transaction != null){
-                transaction.rollback();
+                return null;
             }
             e.printStackTrace();
         }

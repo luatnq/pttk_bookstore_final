@@ -2,6 +2,7 @@ package com.example.bookstore.controller;
 
 import com.example.bookstore.dao.book.AuthorDAO;
 import com.example.bookstore.dao.book.BookDAO;
+import com.example.bookstore.dao.book.impl.BookDAOImpl;
 import com.example.bookstore.dao.book.PublisherDAO;
 import com.example.bookstore.dao.book.impl.AuthorDAOImpl;
 import com.example.bookstore.dao.book.impl.PublisherDAOImpl;
@@ -88,7 +89,7 @@ public class BookServlet extends HttpServlet {
                         if (!fileName.equals("")) {
                             System.out.println("fileName: " + fileName);
                         }
-                        map.put("coverImageFile", fileName);
+                        map.put("coverImageFile","./book_images/".concat(fileName));
                     }
                 }
             } catch (Exception ex) {
@@ -98,7 +99,7 @@ public class BookServlet extends HttpServlet {
         if (!map.isEmpty()) {
             book = populateBook(map);
         }
-        BookDAO bookDAO = new BookDAO();
+        BookDAO bookDAO = new BookDAOImpl();
         bookDAO.saveBook(book);
 
         response.sendRedirect(request.getContextPath() + "/AddBookConfirmation.jsp?success=true");
@@ -127,6 +128,7 @@ public class BookServlet extends HttpServlet {
         }
         book.setAuthor(author);
         book.setLanguage(map.get("language"));
+        book.setStatus(false);
         book.setNumberOfPage(Integer.valueOf(map.get("number_of_page")));
         if (map.containsKey("coverImageFile")) {
             FileDb fileDb = new FileDb(map.get("coverImageFile"));

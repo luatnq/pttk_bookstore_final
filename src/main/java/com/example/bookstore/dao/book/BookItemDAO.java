@@ -4,6 +4,7 @@ import com.example.bookstore.dao.DBConnectionPool;
 import com.example.bookstore.model.FileDb;
 import com.example.bookstore.model.book.Book;
 import com.example.bookstore.model.book.BookItem;
+import com.example.bookstore.model.book.Publisher;
 import com.example.bookstore.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -74,6 +75,21 @@ public class BookItemDAO {
             e.printStackTrace();
         }
         return bookItem;
+    }
+
+    public void saveBookItem(BookItem bookItem){
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()){
+            transaction = session.beginTransaction();
+            session.save(bookItem);
+
+            transaction.commit();
+        }catch (Exception e){
+            if (transaction != null){
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
     }
 
 

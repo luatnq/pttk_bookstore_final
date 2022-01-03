@@ -45,27 +45,21 @@ public class Customer implements Serializable {
 //    @LastModifiedDate
     private Date updatedDate;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "customer", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-//    @LazyToOne(LazyToOneOption.NO_PROXY)
-    private Account account;
+    @Column(name = "account_id")
+    private Integer accountId;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "customer", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-//    @LazyToOne(LazyToOneOption.NO_PROXY)
-    private Address address;
+    @Column(name = "address_id")
+    private Integer addressId;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "customer", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-//    @LazyToOne(LazyToOneOption.NO_PROXY)
-    private FullName fullName;
+    @Column(name = "full_name_id")
+    private Integer fullNameId;
 
     public Customer(RegisterDTO registerDTO, Account account, FullName fullName) throws ParseException {
         this.email = registerDTO.getEmail();
         this.phone = registerDTO.getPhone();
         this.dob = DateUtils.convertStringToDate(registerDTO.getDob(), "yyyy-MM-dd");
         this.createdDate = new Date();
-        this.account = account;
-        this.fullName = fullName;
+        this.accountId = account.getId();
+        this.fullNameId = fullName.getId();
     }
 }

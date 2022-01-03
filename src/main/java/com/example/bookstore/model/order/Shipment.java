@@ -12,7 +12,6 @@ import java.util.Date;
 @Entity
 @Data
 @Table(name = "shipments")
-//@EntityListeners(AuditingEntityListener.class)
 @AllArgsConstructor
 @NoArgsConstructor
 public class Shipment implements Serializable {

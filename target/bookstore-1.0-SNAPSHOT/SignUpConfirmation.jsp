@@ -6,6 +6,8 @@
 <%@ page import="com.example.bookstore.model.customer.FullName" %>
 <%@ page import="com.example.bookstore.model.customer.Customer" %>
 <%@ page import="com.example.bookstore.dao.customer.CustomerDAO" %>
+<%@ page import="com.example.bookstore.dao.staff.StaffDAO" %>
+<%@ page import="com.example.bookstore.dao.staff.StaffDAOImpl" %>
 <jsp:useBean id="user" scope="request" class="com.example.bookstore.model.dto.RegisterDTO"></jsp:useBean>
 <jsp:setProperty name="user" property="*"></jsp:setProperty>
 
@@ -18,10 +20,11 @@
 
 	Account account = new Account(user.getUsername(), user.getPassword());
 	FullName fullName = new FullName(user.getFirstName(), user.getMiddleName(), user.getLastName());
+	StaffDAO staffDAO = new StaffDAOImpl();
+	staffDAO.saveAccount(account);
+	staffDAO.saveFullName(fullName);
 
 	Customer customer = new Customer(user, account, fullName);
-	account.setCustomer(customer);
-	fullName.setCustomer(customer);
 
 	CustomerDAO customerDAO = new CustomerDAO();
 	customerDAO.register(customer);
