@@ -2,10 +2,18 @@ package com.example.bookstore.controller;
 
 
 import com.example.bookstore.dao.book.BookDAO;
-import com.example.bookstore.dao.book.impl.BookDAOImpl;
 import com.example.bookstore.dao.book.BookItemDAO;
+import com.example.bookstore.dao.book.impl.BookDAOImpl;
+import com.example.bookstore.dao.book.impl.BookItemDAOImpl;
+import com.example.bookstore.dao.customer.AccountDAO;
+import com.example.bookstore.dao.customer.CustomerDAO;
+import com.example.bookstore.dao.customer.impl.AccountDAOImpl;
+import com.example.bookstore.dao.customer.impl.CustomerDAOImpl;
 import com.example.bookstore.model.book.Book;
 import com.example.bookstore.model.book.BookItem;
+import com.example.bookstore.model.customer.Account;
+import com.example.bookstore.model.customer.Customer;
+import com.example.bookstore.model.order.Cart;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,54 +35,67 @@ public class BookItemServlet extends HttpServlet {
         doPost(request, response);
     }
 
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String preIsbn = request.getParameter("isbn");
-        String pushConfirm = request.getParameter("pushConfirm");
-        HttpSession session = request.getSession();
 
-        String isbn = Objects.isNull(preIsbn) ? null : preIsbn.substring(0, preIsbn.length() - 2);
+
+        String quantityStr = request.getParameter("quantity");
+        String isbn = request.getParameter("isbn");
+        String title = request.getParameter("title");
+        String bookItemId = request.getParameter("id");
 
         String removeButtonVal = request.getParameter("remove");
-        String pushButtonVal = request.getParameter("push");
-        System.out.println("Retreived ISBN: " + isbn);
-        Book book = null;
-        if (Objects.isNull(pushConfirm)) {
-            book = new BookDAOImpl().getBookByIsbn(isbn);
-            session.setAttribute("bookPush", book);
-        } else {
-            book = (Book) session.getAttribute("bookPush");
-            session.removeAttribute("bookPush");
+        String addButtonVal = request.getParameter("add");
+        String quantityError = request.getParameter("quanErr");
+
+        HttpSession session = request.getSession();
+
+        Cart cart = (Cart) session.getAttribute("cart");
+        if (cart == null) {
+            cart = new Cart();
         }
-        BookItemDAO bookItemDAO = new BookItemDAO();
-        BookDAO bookDAO = new BookDAOImpl();
 
-        if (Objects.nonNull(pushButtonVal)) {
-            RequestDispatcher dispatcher =
-                    getServletContext().getRequestDispatcher("/BookItemInput.jsp");
-            dispatcher.forward(request, response);
-        } else if (Objects.nonNull(pushConfirm)) {
+        if (Objects.isNull(quantityError)) {
+            Object userIn = session.getAttribute("user");
+            String userLoggedIn = null;
+            if (userIn != null) {
+                userLoggedIn = (String) userIn;
+            }
+            if (Objects.isNull(userLoggedIn)) {
+                RequestDispatcher dispatcher =
+                        getServletContext().getRequestDispatcher("/SignUp.jsp");
+                dispatcher.forward(request, response);
+            }
+            if (Objects.isNull(cart.getCustomer())) {
+                CustomerDAO customerDAO = new CustomerDAOImpl();
+                AccountDAO accountDAO = new AccountDAOImpl();
+                Account account = accountDAO.getAccountByUsername(userLoggedIn);
+                Customer customer = customerDAO.getCustomerByAccount(account);
+                cart.setCustomer(customer);
+            }
 
-            String price = request.getParameter("price");
-            String discount = request.getParameter("discount");
-            String barcode = request.getParameter("barCode");
-//            for (FileDb fileDb : new ArrayList<>(book.getFileDbs())){
-//                fileDb.setId(null);
-//            }
-            BookItem bookItem = new BookItem(book, Float.valueOf(price), discount, barcode);
-            bookItemDAO.saveBookItem(bookItem);
-            book.setStatus(true);
-            bookDAO.updateBook(book);
+            BookItemDAO bookItemDAO = new BookItemDAOImpl();
 
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ViewBooks.jsp");
-            dispatcher.forward(request, response);
-        } else {
-            request.setAttribute("bookItem", bookItemDAO.getBookItemByBook(book));
+            BookItem bookItem = bookItemDAO.getBookItemById(Integer.valueOf(bookItemId));
+            float sumPrice = 0f;
 
-            RequestDispatcher dispatcher =
-                    getServletContext().getRequestDispatcher("/BookListing.jsp");
-            dispatcher.forward(request, response);
+            if (Objects.nonNull(removeButtonVal)) {
+                cart.getBookItems().remove(bookItem);
+                sumPrice = cart.getTotalPrice() - bookItem.getPrice();
+            } else if (Objects.nonNull(addButtonVal)) {
+                cart.getBookItems().add(bookItem);
+                cart.setAmount(1);
+                sumPrice = cart.getTotalPrice() + bookItem.getPrice();
+            }
+
+            sumPrice = cart.getTotalPrice() + bookItem.getPrice();
+            cart.setTotalPrice(sumPrice);
+            session.setAttribute("totalPrice", String.valueOf(sumPrice));
         }
+        session.setAttribute("cart", cart);
+
+        RequestDispatcher dispatcher = getServletContext()
+                .getRequestDispatcher(Objects.nonNull(removeButtonVal) ? "/Cart.js" : "/");
+        dispatcher.forward(request, response);
     }
 
 }

@@ -3,13 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<%--<sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver"--%>
-<%--                   url="jdbc:mysql://localhost:3306/bookstore?useSSL=false"--%>
-<%--                   user="admin"  password="A29I^BeEIcck@g"/>--%>
-
-<%--<sql:query dataSource="${snapshot}" var="result">--%>
-<%--    SELECT genre_name from genres;--%>
-<%--</sql:query>--%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -47,11 +40,9 @@
                             class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="./Search?search-query=">All</a></li>
-                        <c:forEach var="row" items="${result.rows}">
-                            <li><a href="./Search?search-query=${row.genre_name}">${row.genre_name}</a></li>
-                        </c:forEach>
                     </ul>
                 </li>
+
                 <%
                     Object userIn = session.getAttribute("user");
                     String userLoggedIn = "";
@@ -75,17 +66,29 @@
                 <%
                     }
                 %>
+<%--                <%--%>
+<%--                    if (Objects.nonNull(userLoggedIn)) {--%>
+<%--                        Object role = session.getAttribute("role");--%>
+<%--                        if (Objects.nonNull(role)) {--%>
+<%--                            String roleStr = (String) role;--%>
+<%--                            if (roleStr.equals("staff")) {--%>
+<%--                %>--%>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Admin<span
                             class="caret"></span></a>
+
                     <ul class="dropdown-menu" role="menu">
-                        <%--                        <li><a href="./generateReports">View Reports</a></li>--%>
                         <li><a href="AddBook.jsp">Add Book</a></li>
                         <li><a href="ViewBooks.jsp">View Books</a></li>
                         <li><a href="./UserLookup">View Staff</a></li>
                         <li><a href="AddStaff.jsp">Add staff</a></li>
                     </ul>
+
                 </li>
+<%--                <% }--%>
+<%--                }--%>
+<%--                }--%>
+<%--                %>--%>
                 <li><a href="Cart.jsp">Cart</a></li>
             </ul>
         </div>

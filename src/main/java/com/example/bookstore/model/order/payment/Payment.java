@@ -27,32 +27,17 @@ public class Payment implements Serializable {
     private float amount;
 
     @Column(name = "created_date")
-//    @CreatedDate
     private Date createdDate;
 
     @Column(name = "updated_date")
-//    @LastModifiedDate
     private Date updatedDate;
 
     @OneToOne
-//    @JsonIgnoreProperties
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;
 
     @OneToOne
-//    @JsonIgnoreProperties
     @JoinColumn(name = "shipment_id", referencedColumnName = "id")
     private Shipment shipment;
 
-//    @OneToOne(mappedBy = "payment", cascade = CascadeType.ALL)
-//    @PrimaryKeyJoinColumn
-//    private Check check;
-//
-//    @OneToOne(mappedBy = "payment", cascade = CascadeType.ALL)
-//    @PrimaryKeyJoinColumn
-//    private Cash cash;
-//
-//    @OneToOne(mappedBy = "payment", cascade = CascadeType.ALL)
-//    @PrimaryKeyJoinColumn
-//    private Credit credit;
 }

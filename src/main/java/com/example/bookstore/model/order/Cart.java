@@ -14,8 +14,6 @@ import java.util.*;
 @Data
 @Table(name = "carts")
 @AllArgsConstructor
-//@NoArgsConstructor
-//@EntityListeners(AuditingEntityListener.class)
 public class Cart implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

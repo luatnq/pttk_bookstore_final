@@ -1,8 +1,11 @@
 package com.example.bookstore.controller;
 
 import com.example.bookstore.dao.book.BookItemDAO;
+import com.example.bookstore.dao.book.impl.BookItemDAOImpl;
 import com.example.bookstore.dao.customer.AccountDAO;
 import com.example.bookstore.dao.customer.CustomerDAO;
+import com.example.bookstore.dao.customer.impl.AccountDAOImpl;
+import com.example.bookstore.dao.customer.impl.CustomerDAOImpl;
 import com.example.bookstore.model.book.BookItem;
 import com.example.bookstore.model.customer.Account;
 import com.example.bookstore.model.customer.Customer;
@@ -17,28 +20,17 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Objects;
 
-/**
- * Servlet implementation class DisplayServlet
- */
 public class CartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     public CartServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doPost(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
@@ -70,12 +62,14 @@ public class CartServlet extends HttpServlet {
                 dispatcher.forward(request, response);
             }
             if (Objects.isNull(cart.getCustomer())) {
-				CustomerDAO customerDAO = new CustomerDAO();
-				Customer customer = customerDAO.getCustomerByUsername(userLoggedIn);
+				CustomerDAO customerDAO = new CustomerDAOImpl();
+				AccountDAO accountDAO = new AccountDAOImpl();
+				Account account = accountDAO.getAccountByUsername(userLoggedIn);
+				Customer customer = customerDAO.getCustomerByAccount(account);
 				cart.setCustomer(customer);
             }
 
-			BookItemDAO bookItemDAO = new BookItemDAO();
+			BookItemDAO bookItemDAO = new BookItemDAOImpl();
 
 			BookItem bookItem = bookItemDAO.getBookItemById(Integer.valueOf(bookItemId));
 			float sumPrice = 0f;

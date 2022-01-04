@@ -5,5 +5,5 @@
 session.removeAttribute("user");
 %>
 <h1>Successfully logged out</h1>
-<a href="../../../WebContent">Home</a>
+<a href="./index.jsp">Home</a>
 <%@ include file="footer.jsp" %>

@@ -33,9 +33,17 @@
         <servlet-name>StaffServlet</servlet-name>
         <servlet-class>com.example.bookstore.controller.StaffServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Search</servlet-name>
+        <servlet-class>com.example.bookstore.controller.SearchServlet</servlet-class>
+    </servlet>
 
 
 
+    <servlet-mapping>
+        <servlet-name>Search</servlet-name>
+        <url-pattern>/Search</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>StaffServlet</servlet-name>
         <url-pattern>/StaffServlet</url-pattern>

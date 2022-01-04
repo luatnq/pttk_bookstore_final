@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ include file="header.jsp" %>
-<%@ page import="com.example.bookstore.dao.book.BookItemDAO, java.text.*" %>
+<%@ page import="com.example.bookstore.dao.book.impl.BookItemDAOImpl, java.text.*" %>
 <%@ page import="java.util.Locale" %>
 <%@ page import="java.util.ArrayList" %>
 <jsp:useBean id="bookItem" scope="request" class="com.example.bookstore.model.book.BookItem"></jsp:useBean>

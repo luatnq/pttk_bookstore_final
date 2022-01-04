@@ -1,17 +1,3 @@
-<%--<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>--%>
-<%--<!DOCTYPE html>--%>
-<%--<html>--%>
-<%--<head>--%>
-<%--    <title>JSP - Hello World</title>--%>
-<%--</head>--%>
-<%--<body>--%>
-<%--<h1><%= "Hello World!" %>--%>
-<%--</h1>--%>
-<%--<br/>--%>
-<%--<a href="hello-servlet">Hello Servlet</a>--%>
-<%--</body>--%>
-<%--</html>--%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ include file="header.jsp" %>
@@ -20,18 +6,16 @@
                  com.example.bookstore.model.book.Book,
                  java.util.*,
                  java.text.NumberFormat" %>
-<%@ page import="com.example.bookstore.dao.book.BookItemDAO" %>
+<%@ page import="com.example.bookstore.dao.book.impl.BookItemDAOImpl" %>
 <%@ page import="com.example.bookstore.model.book.BookItem" %>
-<head>
-    <title>Awesome Book Store!</title>
-</head>
-<h1>PTTKHT</h1>
+<%@ page import="com.example.bookstore.model.FileDb" %>
+<h1>Book Store</h1>
 
 
 <%
     Locale localeVN = new Locale("vi", "VN");
     NumberFormat nf = NumberFormat.getCurrencyInstance(localeVN);
-    BookItemDAO bk = new BookItemDAO();
+    BookItemDAOImpl bk = new BookItemDAOImpl();
     List<BookItem> books = bk.getBookItems();
 
 %>
@@ -39,6 +23,7 @@
 
     <%
         for (BookItem book : books) {
+            List<FileDb> fileDbs = new ArrayList<>(book.getFileDbs());
     %>
     <div class="col-md-4" style="padding: 5px;">
         <div style="margin:3px; padding:22px; background-color: #eee;">
@@ -46,7 +31,7 @@
                 <div class="col-md-4">
                     <a href="./BookServlet?isbn=<%= book.getBook().getIsbn() %>"
                        style="max-height: 130px; max-width: 110px;">
-                        <img src="<%= new ArrayList<>(book.getFileDbs()).get(0).getPath()%>"
+                        <img src="<%=  fileDbs.size() > 0 ? fileDbs.get(0).getPath() : null%>"
                              alt="<%=book.getBook().getTitle()%> cover" style="max-width: inherit; max-height: inherit">
                     </a>
                 </div>
@@ -57,6 +42,7 @@
                     </h5>
                     <h5><%=book.getBook().getAuthor().getName() %>
                     </h5>
+                    <h6><%=book.getDiscount()%></h6>
                     <div>
                         <form action="./cartUpdate" method="post">
                             <input type="hidden" name="isbn" value="<%=book.getBook().getIsbn()%>"/>

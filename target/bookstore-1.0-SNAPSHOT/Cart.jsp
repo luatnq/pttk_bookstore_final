@@ -53,6 +53,7 @@
 
     <div>
         <label>Tổng tiền: <% out.println(totalPrice - 30000D);%></label>
+        <br>
     </div>
 
 
@@ -68,6 +69,7 @@
                     <option value="2">Credit</option>
                 </select>
             </div>
+            <br>
         </div>
 
         <div class="row mt-3">
@@ -81,6 +83,7 @@
             <div>
                 <label id="price"></label>
             </div>
+            <br>
         </div>
         <div class="row mt-3" >
             <input type="submit" class="btn btn-default" value="Checkout" style="width: 145px; height: 25px;">

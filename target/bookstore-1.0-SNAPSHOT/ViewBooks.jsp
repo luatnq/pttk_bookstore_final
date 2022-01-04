@@ -1,11 +1,12 @@
 <%@ page import="java.text.NumberFormat" %>
 <%@ page import="java.util.Locale" %>
-<%@ page import="com.example.bookstore.dao.book.BookDAO" %>
+<%@ page import="com.example.bookstore.dao.book.impl.BookDAOImpl" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.bookstore.model.book.Book" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Objects" %>
 <%@ page import="com.example.bookstore.model.FileDb" %>
+<%@ page import="com.example.bookstore.dao.book.impl.BookDAOImpl" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ include file="header.jsp" %>
@@ -30,8 +31,8 @@
 
         <%
             int stt = 1;
-            BookDAO bookDAO = new BookDAO();
-            List<Book> books = bookDAO.getBooks();
+            BookDAOImpl bookDAOImpl = new BookDAOImpl();
+            List<Book> books = bookDAOImpl.getBooks();
             for (Book book : books) {
                 List<FileDb> fileDbs = new ArrayList<>(book.getFileDbs());
         %>

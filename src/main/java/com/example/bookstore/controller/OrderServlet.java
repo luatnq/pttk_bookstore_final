@@ -1,13 +1,14 @@
 package com.example.bookstore.controller;
 
 import com.example.bookstore.dao.order.CartDAO;
+import com.example.bookstore.dao.order.impl.CartDAOImpl;
 import com.example.bookstore.dao.order.OrderDAO;
+import com.example.bookstore.dao.order.impl.OrderDAOImpl;
 import com.example.bookstore.dao.order.PaymentDAO;
 import com.example.bookstore.dao.order.ShipmentDAO;
 import com.example.bookstore.dao.order.impl.PaymentDAOImpl;
 
 import com.example.bookstore.dao.order.impl.ShipmentDAOImpl;
-import com.example.bookstore.model.book.BookItem;
 import com.example.bookstore.model.order.Cart;
 import com.example.bookstore.model.order.Order;
 import com.example.bookstore.model.order.Shipment;
@@ -24,8 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class OrderServlet extends HttpServlet{
@@ -62,8 +61,8 @@ public class OrderServlet extends HttpServlet{
             return;
         }
         Order order = new Order(cart);
-        CartDAO cartDAO = new CartDAO();
-        OrderDAO orderDAO = new OrderDAO();
+        CartDAO cartDAO = new CartDAOImpl();
+        OrderDAO orderDAO = new OrderDAOImpl();
         ShipmentDAO shipmentDAO = new ShipmentDAOImpl();
 
         cartDAO.saveCart(cart);
@@ -77,7 +76,7 @@ public class OrderServlet extends HttpServlet{
 
 
 
-        request.setAttribute("orderId", order.getId());
+        request.setAttribute("orderId", shipCode);
         request.removeAttribute("cart");
 
         RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/OrderConfirmation.jsp");

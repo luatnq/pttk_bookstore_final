@@ -9,6 +9,6 @@ import java.util.List;
 public interface StaffDAO {
     void saveStaff(Staff staff);
     List<Staff> getStaffs();
-    void saveAccount(Account account);
-    void saveFullName(FullName fullName);
+
+    Staff getStaffByAccount(Account account);
 }
